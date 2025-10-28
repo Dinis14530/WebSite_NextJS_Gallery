@@ -15,17 +15,35 @@ export default function Upload() {
 
     const reader = new FileReader();
     reader.onloadend = () => {
-      const newPhoto = {
-        src: reader.result, // base64 da imagem
-        title,
-        location,
-        date: new Date().toISOString().split("T")[0], // data atual
+      const img = new Image();
+      img.src = reader.result;
+
+      img.onload = () => {
+        // Reduz a imagem para 800px de largura máxima
+        const maxWidth = 800;
+        const scale = maxWidth / img.width;
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width > maxWidth ? maxWidth : img.width;
+        canvas.height = img.height * (img.width > maxWidth ? scale : 1);
+
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+        const resizedData = canvas.toDataURL("image/jpeg", 0.7); // qualidade 70%
+
+        const newPhoto = {
+          src: resizedData, // base64 da imagem reduzida
+          title,
+          location,
+          date: new Date().toISOString().split("T")[0], // data atual
+        };
+
+        addPhoto(newPhoto); // adiciona ao contexto
+        setTitle("");
+        setLocation("");
+        setFile(null);
+        alert("Foto enviada com sucesso!");
       };
-      addPhoto(newPhoto); // adiciona ao contexto
-      setTitle("");
-      setLocation("");
-      setFile(null);
-      alert("Foto enviada com sucesso!");
     };
     reader.readAsDataURL(file);
   };

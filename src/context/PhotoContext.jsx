@@ -32,3 +32,4 @@ export function PhotoProvider({ children }) {
     </PhotoContext.Provider>
   );
 }
+
