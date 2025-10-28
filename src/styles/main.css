@@ -1,0 +1,103 @@
+/* Corpo da página */
+body, html {
+  margin: 0;
+  height: 100%;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #d9c3a6, #b48b6d); 
+  color: #3a2d22;
+  overflow: hidden; /* bloqueia o scroll */
+}
+
+.page-container {
+  position: fixed; /* fixa toda a página */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  z-index: 100; 
+  
+}
+
+.page-frame {
+  width: 90%;
+  max-width: 800px;
+  background-color: rgba(210, 180, 140, 0.95);
+  border: 4px solid #5c3a1e;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(60, 45, 30, 0.6);
+  padding: 3rem;
+  text-align: center;
+  z-index: 101;
+  margin-bottom: 4rem;
+}
+
+/* Container texto */
+.home-container {
+  text-align: center;
+}
+
+/* Titulo */
+.home-container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #2c1f13; 
+  
+}
+
+/* Botão */
+.btn {
+  padding: 0.8rem 1.5rem;
+  background-color: #5c3a1e; /* castanho escuro */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+
+/*  Relva */
+.grass {
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(to top, #357a3c 0%, #4a8a4b 100%); /* verde escuro */
+  border-radius: 50% 50% 0 0;
+  position: fixed; /* mudou de absolute para fixed */
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.grass::before,
+.grass::after {
+  content: "";
+  position: fixed; /* igual */
+  bottom: 0;
+  width: 50%;
+  height: 100px;
+  background: linear-gradient(to top, #357a3c 0%, #4a8a4b 100%);
+  border-radius: 50% 50% 0 0;
+}
+
+.grass::before {
+  left: -25%;
+}
+
+.grass::after {
+  right: -25%;
+}
+
+/* Animação fogueira */
+.lottie-animation {
+  position: fixed; /* mudou de absolute para fixed */
+  bottom: -50px; 
+  right: 15px;  
+  width: 400px; 
+  height: 400px;
+  z-index: 102;  
+}

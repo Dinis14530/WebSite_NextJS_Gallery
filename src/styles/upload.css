@@ -1,0 +1,105 @@
+/* Header fixo */
+.upload-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #d2b48c;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.upload-header .btn {
+  padding: 0.5rem 1rem;
+  background-color: #5c3a1e;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.upload-header .btn:hover {
+  background-color: #3e2613;
+}
+
+/* Container da página */
+.upload-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background: linear-gradient(135deg, #d9c3a6, #b48b6d);
+  padding: 100px 20px 50px 20px; /* espaçamento para não ficar atrás do header */
+  font-family: "Poppins", sans-serif;
+  color: #3a2d22;
+}
+
+/* Título */
+.upload-container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #2c1f13;
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+/* Formulário */
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 400px;
+  background-color: rgba(210, 180, 140, 0.95);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(60, 45, 30, 0.5);
+}
+
+/* Inputs */
+.upload-form input[type="text"],
+.upload-form input[type="file"] {
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #8b5e3c;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.upload-form input[type="text"]:focus,
+.upload-form input[type="file"]:focus {
+  border-color: #5c3a1e;
+  box-shadow: 0 0 5px rgba(92, 58, 30, 0.5);
+}
+
+/* Botão do formulário */
+.upload-form .btn {
+  padding: 0.8rem 1.5rem;
+  background-color: #5c3a1e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.upload-form .btn:hover {
+  background-color: #3e2613;
+  transform: translateY(-2px);
+}
+
+/* Responsivo */
+@media (max-width: 500px) {
+  .upload-form {
+    padding: 1.5rem;
+    width: 90%;
+  }
+}
