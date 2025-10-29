@@ -1,56 +1,62 @@
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import "../styles/upload.css";
-import { PhotoContext } from "../context/PhotoContext"; // importa o contexto
+import { PhotoContext } from "../context/PhotoContext";
 
 export default function Upload() {
-  const { addPhoto } = useContext(PhotoContext); // função para adicionar foto ao contexto
+  const { addPhoto } = useContext(PhotoContext);
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
   const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!file) return alert("Escolhe uma foto!");
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const img = new Image();
-      img.src = reader.result;
+    setLoading(true);
 
-      img.onload = () => {
-        // Reduz a imagem para 800px de largura máxima
-        const maxWidth = 800;
-        const scale = maxWidth / img.width;
-        const canvas = document.createElement("canvas");
-        canvas.width = img.width > maxWidth ? maxWidth : img.width;
-        canvas.height = img.height * (img.width > maxWidth ? scale : 1);
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "minha_galeria"); // substitui pelo teu preset
 
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    try {
+      const res = await fetch(
+        "https://api.cloudinary.com/v1_1/do8vyzeih/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
-        const resizedData = canvas.toDataURL("image/jpeg", 0.7); // qualidade 70%
+      const data = await res.json();
 
+      if (data.secure_url) {
         const newPhoto = {
-          src: resizedData, // base64 da imagem reduzida
+          src: data.secure_url, // URL da Cloudinary
           title,
           location,
-          date: new Date().toISOString().split("T")[0], // data atual
+          date: new Date().toISOString().split("T")[0],
         };
 
-        addPhoto(newPhoto); // adiciona ao contexto
+        addPhoto(newPhoto);
         setTitle("");
         setLocation("");
         setFile(null);
-        alert("Foto enviada com sucesso!");
-      };
-    };
-    reader.readAsDataURL(file);
+        alert("✅ Foto enviada com sucesso!");
+      } else {
+        alert("❌ Erro ao enviar foto!");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Erro na comunicação com a Cloudinary");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div>
-      {/* Header fixo com botão de saída */}
       <header className="upload-header">
         <Link to="/galeria">
           <button className="btn">Voltar à Galeria</button>
@@ -80,7 +86,9 @@ export default function Upload() {
             onChange={(e) => setFile(e.target.files[0])}
             required
           />
-          <button type="submit" className="btn">Enviar Foto</button>
+          <button type="submit" className="btn" disabled={loading}>
+            {loading ? "A enviar..." : "Enviar Foto"}
+          </button>
         </form>
       </div>
     </div>

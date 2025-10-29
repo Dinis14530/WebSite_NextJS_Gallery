@@ -37,6 +37,12 @@ export default function Home() {
         autoplay
         loop
       ></dotlottie-wc>
+
+        <img
+        src="/images/imagem1.png"
+        alt="Decoração"
+        className="home-content"
+      />
     </>
   );
 }
